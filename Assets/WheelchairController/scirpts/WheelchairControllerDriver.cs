@@ -9,6 +9,7 @@ public class WheelchairControllerDriver : MonoBehaviour {
     private Collider[] _otherColliders;
 
     public void Awake() {
+        _worldHalfExtents = new List<Vector3>();
         foreach (var c in colliders) {
             _worldHalfExtents.Add(c.transform.TransformVector(c.size * 0.5f));
         }
@@ -20,7 +21,10 @@ public class WheelchairControllerDriver : MonoBehaviour {
         var worldHalfExtent = _worldHalfExtents[0];
         Vector3 worldCenter = aCollider.transform.TransformPoint(aCollider.center);
         int numOverlaps = Physics.OverlapBoxNonAlloc(worldCenter, worldHalfExtent, _otherColliders,
-            aCollider.transform.rotation); 
+            aCollider.transform.rotation);
+        if (numOverlaps > 0) {
+            Debug.Log("_otherColliders: " + numOverlaps);
+        }
         for (int i = 0; i < numOverlaps; i++) {
             Vector3 direction;
             float distance;

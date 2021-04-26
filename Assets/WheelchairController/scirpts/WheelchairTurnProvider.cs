@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class WheelchairTurnProvider : UnityEngine.XR.Interaction.Toolkit.ActionBasedContinuousTurnProvider
 {
+    public VJHandler vjHandler;
     
+    private void Start() {
+        if (vjHandler == null) {
+            vjHandler = GameObject.Find("VirtualJoyStick").GetComponent<VJHandler>();
+        }
+    }
     protected new  void Update()
     {
         // Use the input amount to scale the turn speed.
@@ -14,6 +20,7 @@ public class WheelchairTurnProvider : UnityEngine.XR.Interaction.Toolkit.ActionB
     }
 
     protected override Vector2 ReadInput() {
-        return new Vector2(base.ReadInput().x,0);
+        Vector2 vjvalue =  vjHandler?.InputDirection ?? Vector2.zero;
+        return new Vector2((base.ReadInput()+vjvalue).x,0) ;
     }
 }
