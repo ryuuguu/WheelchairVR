@@ -92,8 +92,9 @@ public class WheelChairDrive : MonoBehaviour
 		wheels[0].motorTorque = torque0 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[0].rpm), 0.001f)) / maxRPM;
 		wheels[1].motorTorque = torque1 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[1].rpm), 0.001f)) / maxRPM;
 
-		Debug.Log("RPM: "+ wheels[0].rpm + " : " + wheels[0].motorTorque 
-		          + " : "+ _rigidbody.velocity.magnitude);
+		//For tunning speed this are good variables to watch
+		//Debug.Log("RPM: "+ wheels[0].rpm + " : " + wheels[0].motorTorque 
+		//          + " : "+ _rigidbody.velocity.magnitude);
 		
 		foreach (WheelCollider wheel in wheels) {
 			// Update visual wheels if any.
