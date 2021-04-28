@@ -779,7 +779,7 @@
                     "name": "",
                     "id": "2916be72-eef2-46b8-a122-c7fd09eea38b",
                     "path": "<XRController>{RightHand}/primary2DAxis",
-                    "interactions": "Sector(directions=3)",
+                    "interactions": "Sector(directions=-1)",
                     "processors": "StickDeadzone",
                     "groups": "Continuous Move",
                     "action": "Move",

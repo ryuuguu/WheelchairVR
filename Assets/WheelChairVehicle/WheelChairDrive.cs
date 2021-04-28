@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
+[RequireComponent(typeof(Rigidbody))]
 public class WheelChairDrive : MonoBehaviour
 {
    
@@ -12,9 +13,14 @@ public class WheelChairDrive : MonoBehaviour
 	public float brakeTorque = 30000f;
 	[Tooltip("If you need the visual wheels to be attached automatically, drag the wheel shape here.")]
 	public GameObject wheelShape;
+	[Tooltip("Sensitifity rounding factor")] 
+	public float roundingFactor = 10;
+	
 
 	[Tooltip("Radius of wheel shape")] 
 	public Vector3 wheelScale = Vector3.one;
+	[Tooltip("Create wheel shape")]
+	public bool createWheelShapes = true;
 
 	[Tooltip("The vehicle's speed when the physics engine can use different amount of sub-steps (in m/s).")]
 	public float criticalSpeed = 5f;
@@ -25,11 +31,13 @@ public class WheelChairDrive : MonoBehaviour
 
     public WheelCollider[] wheels;
 
-
+    private Rigidbody _rigidbody;
+    
     private readonly float _cosN45 = Mathf.Cos(Mathf.Deg2Rad*-45);
     private readonly float _sinN45 = Mathf.Sin(Mathf.Deg2Rad*-45);
 	void Start() {
 		CreateWheelShapes();
+		_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	public void CreateWheelShapes() {
@@ -37,11 +45,12 @@ public class WheelChairDrive : MonoBehaviour
 			var wheel = wheels[i];
 
 			// Create wheel shapes only when needed.
-			if (wheelShape != null) {
+			if (wheelShape != null && createWheelShapes) {
 				var ws = Instantiate(wheelShape);
 				ws.transform.parent = wheel.transform;
 				ws.transform.localScale = new
 					Vector3(wheelScale.x, wheel.radius / wheelScale.y, wheel.radius / wheelScale.z);
+				ws.transform.localPosition = Vector3.zero;
 			}
 		}
 	}
@@ -53,6 +62,7 @@ public class WheelChairDrive : MonoBehaviour
 	}
 
 	public void DriveWheels(Vector2 v2, bool joystick = true) {
+		v2 = new Vector2(Mathf.Round(v2.x * 10f) / 10f, Mathf.Round(v2.y * 10f) / 10f);
 		if (!joystick) {
 			DriveWheels(v2.x, v2.y);
 		}
@@ -79,9 +89,12 @@ public class WheelChairDrive : MonoBehaviour
 		wheels[0].brakeTorque = handBrake;
 		wheels[1].brakeTorque = handBrake;
 
-		wheels[0].motorTorque = torque0 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[0].rpm), 1)) / maxRPM;
-		wheels[1].motorTorque = torque1 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[1].rpm), 1)) / maxRPM;
+		wheels[0].motorTorque = torque0 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[0].rpm), 0.001f)) / maxRPM;
+		wheels[1].motorTorque = torque1 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[1].rpm), 0.001f)) / maxRPM;
 
+		Debug.Log("RPM: "+ wheels[0].rpm + " : " + wheels[0].motorTorque 
+		          + " : "+ _rigidbody.velocity.magnitude);
+		
 		foreach (WheelCollider wheel in wheels) {
 			// Update visual wheels if any.
 			if (wheelShape) {
