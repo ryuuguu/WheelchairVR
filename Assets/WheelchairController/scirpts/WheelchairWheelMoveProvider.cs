@@ -25,7 +25,7 @@ public class WheelchairWheelMoveProvider :  UnityEngine.XR.Interaction.Toolkit.A
         return v2;
     }
     
-    protected void Update() {
+    protected new void Update() {
         wheelChairDrive.DriveWheels(ReadInput(),  true);
     }
 }

@@ -9,7 +9,7 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
     
     private void Start() {
         if (vjHandler == null) {
-            vjHandler = GameObject.Find("VirtualJoyStick").GetComponent<VJHandler>();
+            vjHandler = GameObject.Find("VirtualJoyStick")?.GetComponent<VJHandler>();
         }
         
     }
@@ -24,7 +24,7 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
         
     }
     
-    protected void Update() {
+    protected new void Update() {
         var input = ReadInput();
         if (useWheelDrive) {
             wheelChairDrive.DriveWheels(input, true);

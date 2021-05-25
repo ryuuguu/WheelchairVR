@@ -8,10 +8,10 @@ public class WheelchairTurnProvider : UnityEngine.XR.Interaction.Toolkit.ActionB
     
     private void Start() {
         if (vjHandler == null) {
-            vjHandler = GameObject.Find("VirtualJoyStick").GetComponent<VJHandler>();
+            vjHandler = GameObject.Find("VirtualJoyStick")?.GetComponent<VJHandler>();
         }
     }
-    protected new  void FixedUpdate()
+    protected void FixedUpdate()
     {
         // Use the input amount to scale the turn speed.
         var input = ReadInput();
