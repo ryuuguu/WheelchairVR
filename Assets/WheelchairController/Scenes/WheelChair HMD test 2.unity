@@ -11048,7 +11048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782b4a171c1316444b28bc1af333471d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRPM: 5
+  maxRPM: 20
   maxTorque: 100
   brakeTorque: 30000000
   wheelShape: {fileID: 1000012053017232, guid: 5df883237f1a04244b9a90ad4ee7b437, type: 3}

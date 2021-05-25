@@ -34,8 +34,7 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
             if (xrRig == null)
                 return;
             var motion = ComputeDesiredMove(input);
-            if (CanBeginLocomotion() && BeginLocomotion())
-            {
+            if (CanBeginLocomotion() && BeginLocomotion()) {
                 xrRig.rig.transform.position += motion;
                 EndLocomotion();
             }
