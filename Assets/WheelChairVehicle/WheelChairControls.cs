@@ -9,19 +9,19 @@ public class WheelChairControls : MonoBehaviour {
 
     private void Start() {
         if (wheelChairDrive == null) {
-            wheelChairDrive = GameObject.Find("WheelChairAvatar").GetComponent<WheelChairDrive>();
+            wheelChairDrive = GameObject.Find("XRWheelChairAvatar").GetComponent<WheelChairDrive>();
         }
-        
+
     }
 
     // Update is called once per frame
-    void Update() 
-    {
+    void Update() {
         /*
         float wheel0Input = Input.GetAxis("Horizontal");
         float wheel1Input = Input.GetAxis("Vertical");
         wheelChairDrive.DriveWheels(wheel0Input, wheel1Input);
         */
         wheelChairDrive.DriveWheels(vjHandler.InputDirection, true);
+       // Debug.Log("WheelChairControls: " + vjHandler.InputDirection);
     }
 }

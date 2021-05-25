@@ -62,7 +62,9 @@ public class WheelChairDrive : MonoBehaviour
 	}
 
 	public void DriveWheels(Vector2 v2, bool joystick = true) {
-		v2 = new Vector2(Mathf.Round(v2.x * 10f) / 10f, Mathf.Round(v2.y * roundingFactor) / roundingFactor);
+		v2 = new Vector2(Mathf.Round(v2.x *  roundingFactor) /  roundingFactor,
+			Mathf.Round(v2.y * roundingFactor) / roundingFactor);
+		Debug.Log("rounded : " + v2);
 		if (!joystick) {
 			DriveWheels(v2.x, v2.y);
 		}
@@ -92,7 +94,9 @@ public class WheelChairDrive : MonoBehaviour
 		wheels[0].motorTorque = torque0 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[0].rpm), 0.001f)) / maxRPM;
 		wheels[1].motorTorque = torque1 * (Mathf.Max(maxRPM - Mathf.Abs(wheels[1].rpm), 0.001f)) / maxRPM;
 
-		//For tunning speed this are good variables to watch
+		//For turning speed this are good variables to watch
+		Debug.Log("RPM: " + wheels[0].rpm + " : " + wheels[1].rpm + " :: " 
+		          +wheel0Input  + " : " + wheel1Input);
 		//Debug.Log("RPM: "+ wheels[0].rpm + " : " + wheels[0].motorTorque 
 		//          + " : "+ _rigidbody.velocity.magnitude);
 		
@@ -116,5 +120,6 @@ public class WheelChairDrive : MonoBehaviour
 				}
 			}
 		}
+		
 	}
 }

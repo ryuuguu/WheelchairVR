@@ -49,6 +49,11 @@ namespace WheelchairController
             /// Use continuous movement control scheme.
             /// </summary>
             Continuous,
+            
+            /// <summary>
+            /// Use to continuously move in a direction based Wheel Driving.
+            /// </summary>
+            WheelDrive,
         }
 
         /// <summary>
@@ -93,7 +98,8 @@ namespace WheelchairController
             /// <summary>
             /// Use to continuously move in a direction based on the Rig  orientation.
             /// </summary>
-            Rig,
+            Rig, 
+            
         }
 
         [SerializeField]
@@ -243,17 +249,17 @@ namespace WheelchairController
 
         [SerializeField]
         [Tooltip("Stores the locomotion provider for continuous movement.")]
-        UnityEngine.XR.Interaction.Toolkit.ContinuousMoveProviderBase m_ContinuousMoveProvider;
+        WheelchairMoveProvider m_ContinuousMoveProvider;
         /// <summary>
         /// Stores the locomotion provider for continuous movement.
         /// </summary>
         /// <seealso cref="ContinuousMoveProviderBase"/>
-        public UnityEngine.XR.Interaction.Toolkit.ContinuousMoveProviderBase continuousMoveProvider
+        public WheelchairMoveProvider continuousMoveProvider
         {
             get => m_ContinuousMoveProvider;
             set => m_ContinuousMoveProvider = value;
         }
-
+        
         [SerializeField]
         [Tooltip("Stores the locomotion provider for continuous turning.")]
         UnityEngine.XR.Interaction.Toolkit.ContinuousTurnProviderBase m_ContinuousTurnProvider;
@@ -357,6 +363,16 @@ namespace WheelchairController
                     if (m_ContinuousMoveProvider != null)
                     {
                         m_ContinuousMoveProvider.enabled = true;
+                        m_ContinuousMoveProvider.useWheelDrive = false;
+                    }
+
+                    break;
+                case MoveScheme.WheelDrive:
+                    SetBindingMasks(m_ContinuousControlScheme);
+                    if (m_ContinuousMoveProvider != null)
+                    {
+                        m_ContinuousMoveProvider.enabled = true;
+                        m_ContinuousMoveProvider.useWheelDrive = true;
                     }
 
                     break;

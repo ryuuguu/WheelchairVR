@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.ActionBasedContinuousMoveProvider {
+public class WheelchairWheelMoveProvider :  UnityEngine.XR.Interaction.Toolkit.ActionBasedContinuousMoveProvider {
     public WheelChairDrive wheelChairDrive;
     public VJHandler vjHandler;
-    public bool useWheelDrive;
+   
+    
     
     private void Start() {
         if (vjHandler == null) {
@@ -20,25 +21,11 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
         var rightHandValue = rightHandMoveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
         Vector2 vjvalue = vjHandler?.InputDirection ?? Vector2.zero;
         var v2 = leftHandValue + rightHandValue + vjvalue;
+       
         return v2;
-        
     }
     
     protected void Update() {
-        var input = ReadInput();
-        if (useWheelDrive) {
-            wheelChairDrive.DriveWheels(input, true);
-        }
-        else {
-            var xrRig = system.xrRig;
-            if (xrRig == null)
-                return;
-            var motion = ComputeDesiredMove(input);
-            if (CanBeginLocomotion() && BeginLocomotion())
-            {
-                xrRig.rig.transform.position += motion;
-                EndLocomotion();
-            }
-        }
+        wheelChairDrive.DriveWheels(ReadInput(),  true);
     }
 }
