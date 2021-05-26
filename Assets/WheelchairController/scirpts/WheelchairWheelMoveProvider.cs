@@ -5,7 +5,7 @@ using UnityEngine;
 public class WheelchairWheelMoveProvider :  UnityEngine.XR.Interaction.Toolkit.ActionBasedContinuousMoveProvider {
     public WheelChairDrive wheelChairDrive;
     public VJHandler vjHandler;
-   
+    public bool disableControl;
     
     
     private void Start() {
@@ -26,6 +26,10 @@ public class WheelchairWheelMoveProvider :  UnityEngine.XR.Interaction.Toolkit.A
     }
     
     protected new void Update() {
-        wheelChairDrive.DriveWheels(ReadInput(),  true);
+        var input = Vector2.zero;
+        if (!disableControl) {
+            input = ReadInput();
+        }
+        wheelChairDrive.DriveWheels(input,  true);
     }
 }

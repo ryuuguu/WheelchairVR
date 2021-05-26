@@ -1,11 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.ActionBasedContinuousMoveProvider {
     public WheelChairDrive wheelChairDrive;
     public VJHandler vjHandler;
     public bool useWheelDrive;
+    private bool m_DisableControl = false;
+
+    public void message(string val) {
+        Debug.Log(val);
+    }
+    
+    /// <summary>
+    /// Controls whether drive can be controlled.
+    /// </summary>
+    public bool disableControl
+    {
+        get => m_DisableControl ;
+        set => m_DisableControl = value;
+    }
     
     private void Start() {
         if (vjHandler == null) {
@@ -25,6 +40,7 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
     }
     
     protected new void Update() {
+        if ( disableControl) return;
         var input = ReadInput();
         if (useWheelDrive) {
             wheelChairDrive.DriveWheels(input, true);

@@ -62,9 +62,9 @@ public class WheelChairDrive : MonoBehaviour
 	}
 
 	public void DriveWheels(Vector2 v2, bool joystick = true) {
+		Debug.Log("DriveWheels");
 		v2 = new Vector2(Mathf.Round(v2.x *  roundingFactor) /  roundingFactor,
 			Mathf.Round(v2.y * roundingFactor) / roundingFactor);
-		Debug.Log("rounded : " + v2);
 		if (!joystick) {
 			DriveWheels(v2.x, v2.y);
 		}
