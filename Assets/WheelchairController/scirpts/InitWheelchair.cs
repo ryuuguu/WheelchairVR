@@ -8,6 +8,7 @@ public class InitWheelchair : MonoBehaviour
     public Transform headCamera;
     public void setForwardAngle() {
         cameraOffset.eulerAngles += new Vector3(0, -1*headCamera.eulerAngles.y, 0);
+        cameraOffset.position -= headCamera.localPosition;
         gameObject.SetActive(false);
     }
 }
