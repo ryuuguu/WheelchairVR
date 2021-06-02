@@ -1,5 +1,5 @@
 {
-    "name": "XRI Default Input Actions",
+    "name": "XRI WheelChair Input Actions",
     "maps": [
         {
             "name": "XRI HMD",
@@ -273,7 +273,7 @@
                     "path": "<XRController>{LeftHand}/Primary2DAxis",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "Noncontinuous Move",
+                    "groups": "Noncontinuous Move;Continuous Move",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false

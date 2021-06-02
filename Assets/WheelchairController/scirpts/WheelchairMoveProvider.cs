@@ -32,9 +32,9 @@ public class WheelchairMoveProvider :  UnityEngine.XR.Interaction.Toolkit.Action
     protected override Vector2 ReadInput()
     {
         var leftHandValue = leftHandMoveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
-        var rightHandValue = rightHandMoveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
+        //var rightHandValue = rightHandMoveAction.action?.ReadValue<Vector2>() ?? Vector2.zero;
         Vector2 vjvalue = vjHandler?.InputDirection ?? Vector2.zero;
-        var v2 = leftHandValue + rightHandValue + vjvalue;
+        var v2 = leftHandValue+ vjvalue; // + rightHandValue 
         return v2;
         
     }
