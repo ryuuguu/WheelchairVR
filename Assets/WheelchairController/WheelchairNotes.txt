@@ -16,17 +16,17 @@ VR headset sets you initial head position as straight ahead. Which is not a prob
 
 Working On============
 
-add wheelchair character controller 
-    detect and react to collisions.
+
 
 unkown==========
-where to put teleport on standing chair?
+
 
 Desired changes==========
 toggle teleport 
 
-change right hand to up/down joystick to move forward back
-change left hand up/down to move elevation of head & arms
-
+game UI to change wheelchair parameters
+    width, depth, height
+    wheel drive vs direct force and rotate
+    arm reach 
+    
 looking for==============
-how are joystick controls changes when object is picked up
